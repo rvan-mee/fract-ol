@@ -22,6 +22,7 @@ typedef struct s_screen {
 	double	y_scale;
 	double	x_offset;
 	double 	y_offset;
+	double	zoom;
 }	screen;
 
 typedef struct s_root {
