@@ -6,7 +6,7 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/26 13:14:44 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/03 17:36:47 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/05 18:11:12 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,29 @@
 #define ARROW_LEFT 123
 #define ARROW_DOWN 125
 #define ARROW_RIGHT 124
+#define KEY_C 8
 #define ESC 53
-#define OFFSET 0.5
+#define OFFSET 1
 #define ZOOM 3
+
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t			i;
+	unsigned char	*str1;
+	unsigned char	*str2;
+
+	i = 0;
+	str1 = (unsigned char *) s1;
+	str2 = (unsigned char *) s2;
+	while (i < n)
+	{
+		if ((str1[i] == 0) || (str2[i] == 0) || (str1[i] != str2[i]))
+			return (str1[i] - str2[i]);
+		i++;
+	}
+	return (0);
+}
 
 void	my_pxl_put(r_root *root, int x, int y, int color)
 {
@@ -33,52 +53,63 @@ void	my_pxl_put(r_root *root, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-void put_color(r_root *root, int x, int y, int iteri)
+int color(int r, int g, int b)
 {
-	int color;
-	
-	if (iteri < (root->r_screen.iteri / 3) * 1)
+	return(r << 16 | g << 8 | b);
+}
+
+void put_color(r_root *root, int x, int y, int i)
+{
+	if (i == root->r_screen.iteri + 1)
 	{
-		color = iteri * 256;
-		my_pxl_put(root, x, y, color);
+		my_pxl_put(root, x, y, 0);
+		return ;
 	}
-	else if (iteri < (root->r_screen.iteri / 3) * 2)
+	if (i < (root->r_screen.iteri / 3) * 1)
 	{
-		color = iteri * 64 * 256;
-		my_pxl_put(root, x, y, color);
+		while (i < 25)
+			i++;
+		my_pxl_put(root, x, y, color(i * 1, i * root->r_screen.color, i * 3));
 	}
-	else if (iteri > (root->r_screen.iteri / 3) * 2)
+	else if (i < (root->r_screen.iteri / 3) * 2)
 	{
-		color = iteri * 64 * 256 * 256;
-		my_pxl_put(root, x, y, color);
+		my_pxl_put(root, x, y, color(i * 2, i * 3, i * root->r_screen.color));
+	}
+	else if (i > (root->r_screen.iteri / 3) * 2)
+	{
+		my_pxl_put(root, x, y, color(i * root->r_screen.color, i * 4, i * 5));
 	}
 }
 
 int	mandelbrot(r_root *root, double x, double y)
 {
-	double	real = 0;
-	double	imaginary = 0;
+	int		i;
+	double	real;
+	double	imaginary;
 	double	real_tmp;
-	double	real_start = x * root->r_screen.x_scale + root->r_screen.x_offset;
-	double	imaginary_start = y * root->r_screen.y_scale + root->r_screen.y_offset;
-	int		i = 0;
-//	int		color = root->r_screen.color;
-	
-	while (i <= root->r_screen.iteri)
+	double	real_start;
+	double	imaginary_start;
+
+	i = 0;
+	real = 0;
+	imaginary = 0;
+	real_start = x * root->r_screen.x_scale + root->r_screen.x_offset;
+	imaginary_start = y * root->r_screen.y_scale + root->r_screen.y_offset;
+	while (real * real + imaginary * imaginary <= 2 * 2 && i <= root->r_screen.iteri)
 	{
-		real_tmp = real;
-		real = real * real - imaginary * imaginary + real_start;
-		imaginary = real_tmp * imaginary * 2 + imaginary_start;
-		if (real * real + imaginary * imaginary >= 4)
-			break ;
+		real_tmp = real * real - imaginary * imaginary + real_start;
+		imaginary = 2 * real * imaginary + imaginary_start;
+		real = real_tmp;
 		i++;
 	}
-	if (i == root->r_screen.iteri + 1)
-		my_pxl_put(root, x, y, 0x0000000);
-	else
-		put_color(root, x, y, i);
+	put_color(root, x, y, i);
 	return (SUCCESS);
 }
+
+// int julia(r_root *root, double x, double y)
+// {
+	
+// }
 
 void refresh(r_root *root)
 {
@@ -100,10 +131,12 @@ void color_change(r_root *root)
 	new_img(root);
 	while (y < HEIGHT)
 	{
-		mandelbrot(root, x, y);
+		if (root->set == 1)
+			mandelbrot(root, x, y);
 		while (x < WIDTH)
 		{
-			mandelbrot(root, x, y);
+			if (root->set == 1)
+				mandelbrot(root, x, y);
 			x++;
 		}
 		x = 0;
@@ -117,17 +150,23 @@ int	key_hook(int keycode, r_root *root)
 	if (keycode == ESC)
 		exit(1);
 	else if (keycode == ARROW_DOWN)
-		root->r_screen.y_offset -= OFFSET;
+		root->r_screen.y_offset -= (double)OFFSET - root->r_screen.zoom;
 	else if (keycode == ARROW_UP)
-		root->r_screen.y_offset += OFFSET;
+		root->r_screen.y_offset += (double)OFFSET + root->r_screen.zoom;
 	else if (keycode == ARROW_LEFT)
-		root->r_screen.x_offset -= OFFSET;
+		root->r_screen.x_offset -= (double)OFFSET - root->r_screen.zoom;
 	else if (keycode == ARROW_RIGHT)
-		root->r_screen.x_offset += OFFSET;
+		root->r_screen.x_offset += (double)OFFSET + root->r_screen.zoom;
+	else if (keycode == KEY_C)
+	{
+		if (root->r_screen.color > 0 && root->r_screen.color < 0x000FFFFFF)
+			root->r_screen.color += 32;
+		else if (root->r_screen.color == 0x000FFFFFF)
+			root->r_screen.color -= 255*255;
+	}
 	if (keycode == ARROW_RIGHT || keycode == ARROW_LEFT || 
-		keycode == ARROW_DOWN || keycode == ARROW_UP)
+		keycode == ARROW_DOWN || keycode == ARROW_UP || keycode == KEY_C)
 		color_change(root);
-	//printf("keycode = %d -- color= %x\n", keycode, root->r_screen.color);
 	return (0);
 }
 int	mouse_hook(int button, int x, int y, r_root *root)
@@ -139,6 +178,7 @@ int	mouse_hook(int button, int x, int y, r_root *root)
 
 	if (button == MOUSE_UP)
 	{
+		root->r_screen.zoom += 0.5;
 		root->r_screen.y_scale /= ZOOM;
 		root->r_screen.x_scale /= ZOOM;
 		root->r_screen.x_offset /= ZOOM;
@@ -146,6 +186,8 @@ int	mouse_hook(int button, int x, int y, r_root *root)
 	}
 	else if (button == MOUSE_DOWN)
 	{
+		if (root->r_screen.zoom > 1)
+			root->r_screen.zoom -= 0.5;
 		root->r_screen.y_scale *= ZOOM;
 		root->r_screen.x_scale *= ZOOM;
 		root->r_screen.x_offset *= ZOOM;
@@ -167,13 +209,13 @@ int	mouse_hook(int button, int x, int y, r_root *root)
 int	init_mlx(r_root *root)
 {
 	root->mlx = mlx_init();
-	root->r_screen.iteri = 500;
+	root->r_screen.iteri = 300;
 	root->r_screen.x_scale = 3 / (double)WIDTH;
 	root->r_screen.y_scale = 2 / (double)HEIGHT * -1;
 	root->r_screen.x_offset = -2;
 	root->r_screen.y_offset = 1;
 	root->r_screen.zoom = 1;
-	root->r_screen.color = 0x00FF000F;
+	root->r_screen.color = 0x0000000F;
 	root->mlx_win = mlx_new_window(root->mlx, WIDTH, HEIGHT, "testing!");
 	root->r_data.img = mlx_new_image(root->mlx, WIDTH, HEIGHT);
 	root->r_data.addr = mlx_get_data_addr(root->r_data.img, &root->r_data.bpp, &root->r_data.ll, &root->r_data.endi);
@@ -181,14 +223,32 @@ int	init_mlx(r_root *root)
 	return (0);
 }
 
-int	main(void)
+void check_input(int argc, char **argv, r_root *root)
+{
+	if (argc != 2)
+	{
+		exit(1);
+	}
+	else if (argc == 2 && !(ft_strncmp(argv[1], "mandelbrot", 10)))
+		root->set = 1;
+	else if (argc == 2 && !(ft_strncmp(argv[1], "julia", 5)))
+	{
+		write(1, "")
+	}
+	else
+		exit(1);
+}
+
+int	main(int argc, char *argv[]) //int argc, char *argv[]
 {
 	struct s_root	root;
 
+	check_input(argc, argv, &root);
 	init_mlx(&root);
 	mlx_key_hook(root.mlx_win, key_hook, &root);
 	mlx_mouse_hook(root.mlx_win, mouse_hook, &root);
 	mlx_loop(root.mlx);
+	return (0);
 }
 
 //man /usr/share/man/man1/

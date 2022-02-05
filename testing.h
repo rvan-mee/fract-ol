@@ -23,6 +23,7 @@ typedef struct s_screen {
 	double	x_offset;
 	double 	y_offset;
 	double	zoom;
+	double	escape;
 }	screen;
 
 typedef struct s_root {
@@ -30,6 +31,7 @@ typedef struct s_root {
 	screen	r_screen;
 	void	*mlx;
 	void	*mlx_win;
+	int		set;
 }	r_root;
 
 void 	refresh(r_root *root);
