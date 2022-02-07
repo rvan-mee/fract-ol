@@ -6,7 +6,7 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/26 13:14:44 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/07 16:17:45 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/07 21:08:14 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,13 +164,13 @@ void color_change(r_root *root)
 	{
 		if (root->set == 1)
 			mandelbrot(root, x, y);
-		else
+		else if (root->set == 2)
 			julia(root, x, y);
 		while (x < WIDTH)
 		{
 			if (root->set == 1)
 				mandelbrot(root, x, y);
-			else
+			else if (root->set == 2)
 				julia(root, x, y);
 			x++;
 		}
@@ -265,32 +265,131 @@ int	init_mlx(r_root *root)
 	return (0);
 }
 
+void exit_with_error(int error_message)
+{
+	if (error_message == 1)
+		write(1, "Please use a valid constant\nTry this: 0.285 + 0.01i\n", 53);
+	if (error_message == 2)
+		write(1, "Please use a valid argument\nmandelbrot\njulia\n", 45);
+	exit(1);
+}
+
+void	check_if_correct_input(char *str)
+{
+	int		i;
+	int		passed_dot;
+	int		passed_i;
+
+	i = 0;
+	passed_dot = 0;
+	passed_i = 0;
+	if (str[i] == '-')
+		i++;
+	while (str[i] != '\0' || (str[i] >= '0' && str[i] <= '9'))
+	{	
+		i++;
+		if (str[i] == 'i' && str[i + 1] != '\0')
+			exit_with_error(1);
+		if (str[i] == '.' && passed_dot == 0 && str[i + 1] != 'i')
+		{
+			i++;
+			passed_dot++;
+		}
+		if (str[i] == 'i')
+		{
+			passed_i++;
+			i++;
+		}
+	}
+	if (str[i] != '\0' && str[i] != 'i' && str[i - 1] != '.')
+		exit_with_error(1);
+}
+
+// MAKE IT SO IT ONLY CHECKS FOR I ON THE SECOND INPUT
+
+
+double	ft_atof(char *str)
+{
+	int		i;
+	int		passed_dot;
+	double	sign;
+	double	nbr;
+
+	check_if_correct_input(str);
+	i = 0;
+	nbr = 0;
+	sign = 1;
+	passed_dot = 0;
+	printf("float should be: %s\n", str);
+	if (str[i] == '-')
+	{
+		sign = -1;
+		i++;
+	}
+	while (str[i] != '\0')
+	{
+		if (str[i] == '.')
+		{
+			passed_dot++;
+			i++;
+		}
+		if (passed_dot != 0)
+			passed_dot++;
+		if (!(str[i] == 'i'))
+		{
+		nbr *= 10;
+		nbr += str[i] - '0';
+		}
+		i++;
+	}
+	while (passed_dot > 1)
+	{
+		nbr /= 10;
+		passed_dot--;
+	}
+	printf("float after atof: %f\n", nbr);
+	return (nbr * sign);
+}
+
+double	ft_atosign(char *sign)
+{
+	int i;
+
+	i = 0;
+	if (!sign)
+		exit_with_error(1);
+	while (sign[i] != '\0')
+		i++;
+	if (i != 1)
+		exit_with_error(1);
+	if (sign[0] == 43)
+		return (1);
+	else if (sign[0] == 45)
+		return (-1);
+	exit_with_error(1);
+	return (0);
+}
+
 void check_input(int argc, char **argv, r_root *root)
 {
 	if (argc == 2 && !(ft_strncmp(argv[1], "mandelbrot", 10)))
 		root->set = 1;
 	else if (argc == 2 && !(ft_strncmp(argv[1], "julia", 5)))
-	{
-		write(1, "Please use a valid c\nTry this: 0.285 + 0.01i\n", 42);
-		exit(1);
-	}
+		exit_with_error(1);
 	else if (argc == 3 && !(ft_strncmp(argv[1], "julia", 5)))
 	{
 		root->set = 2;
 		root->r_julia.x = 0;
 		root->r_julia.y = ft_atof(argv[argc - 1]);
 	}
-	else if (argc == 4 && !(ft_strncmp(argv[1], "julia", 5)))
+	else if (argc == 5 && !(ft_strncmp(argv[1], "julia", 5)))
 	{
 		root->set = 2;
-		root->r_julia.x = ft_atof(argv[argc - 2]);
-		root->r_julia.y = ft_atof(argv[argc - 1]);
+		root->r_julia.x = ft_atof(argv[argc - 3]);
+		root->r_julia.y = ft_atof(argv[argc - 1]) * ft_atosign(argv[argc - 2]);
 	}
 	else
-	{
-		write(1, "Please use a valid argument\nmandelbrot\njulia\n", 46);
-		exit(1);
-	}
+		exit_with_error(2);
 }
 
 int	main(int argc, char *argv[])
