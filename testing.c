@@ -6,7 +6,7 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/26 13:14:44 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/05 18:11:12 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/07 16:17:45 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 #define ARROW_LEFT 123
 #define ARROW_DOWN 125
 #define ARROW_RIGHT 124
+#define	PAGE_UP 116
+#define PAGE_DOWN 121
 #define KEY_C 8
 #define ESC 53
 #define OFFSET 1
@@ -69,16 +71,27 @@ void put_color(r_root *root, int x, int y, int i)
 	{
 		while (i < 25)
 			i++;
-		my_pxl_put(root, x, y, color(i * 1, i * root->r_screen.color, i * 3));
+		my_pxl_put(root, x, y, color(i * 2, i * root->r_screen.color, i / 2));
 	}
 	else if (i < (root->r_screen.iteri / 3) * 2)
 	{
-		my_pxl_put(root, x, y, color(i * 2, i * 3, i * root->r_screen.color));
+		my_pxl_put(root, x, y, color(i * 2, i * 2, i * root->r_screen.color));
 	}
 	else if (i > (root->r_screen.iteri / 3) * 2)
 	{
-		my_pxl_put(root, x, y, color(i * root->r_screen.color, i * 4, i * 5));
+		my_pxl_put(root, x, y, color(i * root->r_screen.color, i, i / 2));
 	}
+}
+
+void	put_plot(r_root *root, int x, int y)
+{
+	double	real;
+	double	imaginary;
+
+	real = x * root->r_screen.x_scale + root->r_screen.x_offset;
+	imaginary = y * root->r_screen.y_scale + root->r_screen.y_offset;
+	if (real == 0 || imaginary == 0)
+		my_pxl_put(root, x, y, 0x0FFFFFF);
 }
 
 int	mandelbrot(r_root *root, double x, double y)
@@ -103,13 +116,31 @@ int	mandelbrot(r_root *root, double x, double y)
 		i++;
 	}
 	put_color(root, x, y, i);
+	put_plot(root, x, y);
 	return (SUCCESS);
 }
 
-// int julia(r_root *root, double x, double y)
-// {
-	
-// }
+int julia(r_root *root, double x, double y)
+{
+	int		i;
+	double	new_x;
+	double	new_y;
+	double	x_temp;
+
+	i = 0;
+	new_x = x * root->r_screen.x_scale + root->r_screen.x_offset;
+	new_y = y * root->r_screen.y_scale + root->r_screen.y_offset;
+	while (new_x * new_x + new_y * new_y < 2 * 2 && i <= root->r_screen.iteri)
+	{
+		x_temp = new_x * new_x - new_y * new_y;
+		new_y = 2 * new_x * new_y + root->r_julia.y;
+		new_x = x_temp + root->r_julia.x;
+		i++;
+	}
+	put_color(root, x, y, i);
+	// put_plot(root, x, y);
+	return (SUCCESS);
+}
 
 void refresh(r_root *root)
 {
@@ -133,10 +164,14 @@ void color_change(r_root *root)
 	{
 		if (root->set == 1)
 			mandelbrot(root, x, y);
+		else
+			julia(root, x, y);
 		while (x < WIDTH)
 		{
 			if (root->set == 1)
 				mandelbrot(root, x, y);
+			else
+				julia(root, x, y);
 			x++;
 		}
 		x = 0;
@@ -147,6 +182,7 @@ void color_change(r_root *root)
 
 int	key_hook(int keycode, r_root *root)
 {
+	printf("keycode == %d\n", keycode);
 	if (keycode == ESC)
 		exit(1);
 	else if (keycode == ARROW_DOWN)
@@ -160,12 +196,18 @@ int	key_hook(int keycode, r_root *root)
 	else if (keycode == KEY_C)
 	{
 		if (root->r_screen.color > 0 && root->r_screen.color < 0x000FFFFFF)
-			root->r_screen.color += 32;
+			root->r_screen.color += 1;
 		else if (root->r_screen.color == 0x000FFFFFF)
 			root->r_screen.color -= 255*255;
+		printf("color = %d\n", root->r_screen.color);
 	}
+	else if (keycode == PAGE_UP)
+		root->r_screen.iteri += 50;
+	else if (keycode == PAGE_DOWN)
+		root->r_screen.iteri -= 50;
 	if (keycode == ARROW_RIGHT || keycode == ARROW_LEFT || 
-		keycode == ARROW_DOWN || keycode == ARROW_UP || keycode == KEY_C)
+		keycode == ARROW_DOWN || keycode == ARROW_UP || keycode == KEY_C ||
+		keycode == PAGE_DOWN || keycode == PAGE_UP)
 		color_change(root);
 	return (0);
 }
@@ -209,7 +251,7 @@ int	mouse_hook(int button, int x, int y, r_root *root)
 int	init_mlx(r_root *root)
 {
 	root->mlx = mlx_init();
-	root->r_screen.iteri = 300;
+	root->r_screen.iteri = 50;
 	root->r_screen.x_scale = 3 / (double)WIDTH;
 	root->r_screen.y_scale = 2 / (double)HEIGHT * -1;
 	root->r_screen.x_offset = -2;
@@ -225,21 +267,33 @@ int	init_mlx(r_root *root)
 
 void check_input(int argc, char **argv, r_root *root)
 {
-	if (argc != 2)
-	{
-		exit(1);
-	}
-	else if (argc == 2 && !(ft_strncmp(argv[1], "mandelbrot", 10)))
+	if (argc == 2 && !(ft_strncmp(argv[1], "mandelbrot", 10)))
 		root->set = 1;
 	else if (argc == 2 && !(ft_strncmp(argv[1], "julia", 5)))
 	{
-		write(1, "")
+		write(1, "Please use a valid c\nTry this: 0.285 + 0.01i\n", 42);
+		exit(1);
+	}
+	else if (argc == 3 && !(ft_strncmp(argv[1], "julia", 5)))
+	{
+		root->set = 2;
+		root->r_julia.x = 0;
+		root->r_julia.y = ft_atof(argv[argc - 1]);
+	}
+	else if (argc == 4 && !(ft_strncmp(argv[1], "julia", 5)))
+	{
+		root->set = 2;
+		root->r_julia.x = ft_atof(argv[argc - 2]);
+		root->r_julia.y = ft_atof(argv[argc - 1]);
 	}
 	else
+	{
+		write(1, "Please use a valid argument\nmandelbrot\njulia\n", 46);
 		exit(1);
+	}
 }
 
-int	main(int argc, char *argv[]) //int argc, char *argv[]
+int	main(int argc, char *argv[])
 {
 	struct s_root	root;
 

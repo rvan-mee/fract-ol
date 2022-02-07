@@ -13,7 +13,12 @@ typedef struct s_data {
 	int		bpp;
 	int		ll;
 	int		endi;
-}	data;
+}	t_data;
+
+typedef struct s_julia {
+	double	x;
+	double	y;
+}	t_julia;
 
 typedef struct s_screen {
 	int		color;
@@ -24,14 +29,15 @@ typedef struct s_screen {
 	double 	y_offset;
 	double	zoom;
 	double	escape;
-}	screen;
+}	t_screen;
 
 typedef struct s_root {
-	data	r_data;
-	screen	r_screen;
-	void	*mlx;
-	void	*mlx_win;
-	int		set;
+	t_data		r_data;
+	t_screen	r_screen;
+	t_julia		r_julia;
+	void		*mlx;
+	void		*mlx_win;
+	int			set;
 }	r_root;
 
 void 	refresh(r_root *root);
@@ -39,6 +45,5 @@ void	my_pxl_put(r_root *root, int x, int y, int color);
 void 	color_change(r_root *root);
 int		key_hook(int keycode, r_root *root);
 int		init_mlx(r_root *root);
-
 
 #endif
