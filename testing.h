@@ -16,19 +16,19 @@ typedef struct s_data {
 }	t_data;
 
 typedef struct s_julia {
-	double	x;
-	double	y;
+	long double	x;
+	long double	y;
 }	t_julia;
 
 typedef struct s_screen {
 	int		color;
 	int		iteri;
-	double	x_scale;
-	double	y_scale;
-	double	x_offset;
-	double 	y_offset;
-	double	zoom;
-	double	escape;
+	long double	x_scale;
+	long double	y_scale;
+	long double	x_offset;
+	long double 	y_offset;
+	long double	zoom;
+	long double	escape;
 }	t_screen;
 
 typedef struct s_root {

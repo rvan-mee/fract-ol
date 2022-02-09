@@ -6,7 +6,7 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/01/26 13:14:44 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/07 21:08:14 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/09 20:05:43 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@
 #define ESC 53
 #define OFFSET 1
 #define ZOOM 3
-
+#define CHECK_I 1
+#define DONT_CHECK_I 0
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
@@ -40,7 +41,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	str2 = (unsigned char *) s2;
 	while (i < n)
 	{
-		if ((str1[i] == 0) || (str2[i] == 0) || (str1[i] != str2[i]))
+		if ((str1[i] == '\0') || (str2[i] == '\0') || (str1[i] != str2[i]))
 			return (str1[i] - str2[i]);
 		i++;
 	}
@@ -85,8 +86,8 @@ void put_color(r_root *root, int x, int y, int i)
 
 void	put_plot(r_root *root, int x, int y)
 {
-	double	real;
-	double	imaginary;
+	long double	real;
+	long double	imaginary;
 
 	real = x * root->r_screen.x_scale + root->r_screen.x_offset;
 	imaginary = y * root->r_screen.y_scale + root->r_screen.y_offset;
@@ -94,14 +95,14 @@ void	put_plot(r_root *root, int x, int y)
 		my_pxl_put(root, x, y, 0x0FFFFFF);
 }
 
-int	mandelbrot(r_root *root, double x, double y)
+int	mandelbrot(r_root *root, long double x, long double y)
 {
 	int		i;
-	double	real;
-	double	imaginary;
-	double	real_tmp;
-	double	real_start;
-	double	imaginary_start;
+	long double	real;
+	long double	imaginary;
+	long double	real_tmp;
+	long double	real_start;
+	long double	imaginary_start;
 
 	i = 0;
 	real = 0;
@@ -120,12 +121,12 @@ int	mandelbrot(r_root *root, double x, double y)
 	return (SUCCESS);
 }
 
-int julia(r_root *root, double x, double y)
+int julia(r_root *root, long double x, long double y)
 {
 	int		i;
-	double	new_x;
-	double	new_y;
-	double	x_temp;
+	long double	new_x;
+	long double	new_y;
+	long double	x_temp;
 
 	i = 0;
 	new_x = x * root->r_screen.x_scale + root->r_screen.x_offset;
@@ -138,7 +139,7 @@ int julia(r_root *root, double x, double y)
 		i++;
 	}
 	put_color(root, x, y, i);
-	// put_plot(root, x, y);
+	put_plot(root, x, y);
 	return (SUCCESS);
 }
 
@@ -178,28 +179,27 @@ void color_change(r_root *root)
 		y++;
 	}
 	refresh(root);
+	printf("scale x: %.50Lf\nscale y: %.50Lf\noffset x: %.50Lf\noffset y: %.50Lf\n\n\n", root->r_screen.x_scale, root->r_screen.y_scale, root->r_screen.x_offset, root->r_screen.x_offset);
 }
 
 int	key_hook(int keycode, r_root *root)
 {
-	printf("keycode == %d\n", keycode);
 	if (keycode == ESC)
 		exit(1);
 	else if (keycode == ARROW_DOWN)
-		root->r_screen.y_offset -= (double)OFFSET - root->r_screen.zoom;
+		root->r_screen.y_offset -= (long double)OFFSET - root->r_screen.zoom;
 	else if (keycode == ARROW_UP)
-		root->r_screen.y_offset += (double)OFFSET + root->r_screen.zoom;
+		root->r_screen.y_offset += (long double)OFFSET + root->r_screen.zoom;
 	else if (keycode == ARROW_LEFT)
-		root->r_screen.x_offset -= (double)OFFSET - root->r_screen.zoom;
+		root->r_screen.x_offset -= (long double)OFFSET - root->r_screen.zoom;
 	else if (keycode == ARROW_RIGHT)
-		root->r_screen.x_offset += (double)OFFSET + root->r_screen.zoom;
+		root->r_screen.x_offset += (long double)OFFSET + root->r_screen.zoom;
 	else if (keycode == KEY_C)
 	{
 		if (root->r_screen.color > 0 && root->r_screen.color < 0x000FFFFFF)
 			root->r_screen.color += 1;
 		else if (root->r_screen.color == 0x000FFFFFF)
 			root->r_screen.color -= 255*255;
-		printf("color = %d\n", root->r_screen.color);
 	}
 	else if (keycode == PAGE_UP)
 		root->r_screen.iteri += 50;
@@ -213,10 +213,10 @@ int	key_hook(int keycode, r_root *root)
 }
 int	mouse_hook(int button, int x, int y, r_root *root)
 {
-	double	x_start = (double)x * root->r_screen.x_scale + root->r_screen.x_offset;
-	double	y_start = (double)y * root->r_screen.y_scale + root->r_screen.y_offset;
-	double	x_new;
-	double	y_new;
+	long double	x_start = (long double)x * root->r_screen.x_scale + root->r_screen.x_offset;
+	long double	y_start = (long double)y * root->r_screen.y_scale + root->r_screen.y_offset;
+	long double	x_new;
+	long double	y_new;
 
 	if (button == MOUSE_UP)
 	{
@@ -237,8 +237,8 @@ int	mouse_hook(int button, int x, int y, r_root *root)
 	}
 	if (button == MOUSE_UP || button == MOUSE_DOWN)
 	{
-		x_new = (double)x * root->r_screen.x_scale + root->r_screen.x_offset;
-		y_new = (double)y * root->r_screen.y_scale + root->r_screen.y_offset;
+		x_new = (long double)x * root->r_screen.x_scale + root->r_screen.x_offset;
+		y_new = (long double)y * root->r_screen.y_scale + root->r_screen.y_offset;
 		x_new -= x_start;
 		y_new -= y_start;
 		root->r_screen.x_offset -= x_new;
@@ -252,8 +252,8 @@ int	init_mlx(r_root *root)
 {
 	root->mlx = mlx_init();
 	root->r_screen.iteri = 50;
-	root->r_screen.x_scale = 3 / (double)WIDTH;
-	root->r_screen.y_scale = 2 / (double)HEIGHT * -1;
+	root->r_screen.x_scale = 3 / (long double)WIDTH;
+	root->r_screen.y_scale = 2 / (long double)HEIGHT * -1;
 	root->r_screen.x_offset = -2;
 	root->r_screen.y_offset = 1;
 	root->r_screen.zoom = 1;
@@ -274,7 +274,7 @@ void exit_with_error(int error_message)
 	exit(1);
 }
 
-void	check_if_correct_input(char *str)
+void	check_if_correct_input(char *str, int i_check)
 {
 	int		i;
 	int		passed_dot;
@@ -285,42 +285,35 @@ void	check_if_correct_input(char *str)
 	passed_i = 0;
 	if (str[i] == '-')
 		i++;
-	while (str[i] != '\0' || (str[i] >= '0' && str[i] <= '9'))
+	while (str[i] != '\0' || (str[i] >= '0' && str[i] <= '9') || str[i] == 'i' || str[i] == '.')
 	{	
-		i++;
-		if (str[i] == 'i' && str[i + 1] != '\0')
+		if ((str[i] == 'i' && str[i + 1] != '\0') || (str[i] == '.' && i == 0) ||
+			(str[i] == '.' && !(str[i - 1] >= '0' && str[i - 1] <= '9')) ||
+			(str[i] == '.' && str[i - 1] == 'i') || (str[i] == '.' && str[i + 1] == '\0') ||
+			(str[i] == '.' && str[i + 1] == 'i') || (str[i] == 'i' && str[i + 1] == '\0' && i == 0))
 			exit_with_error(1);
-		if (str[i] == '.' && passed_dot == 0 && str[i + 1] != 'i')
-		{
-			i++;
+		if (str[i] == '.')
 			passed_dot++;
-		}
 		if (str[i] == 'i')
-		{
 			passed_i++;
-			i++;
-		}
+		i++;
 	}
-	if (str[i] != '\0' && str[i] != 'i' && str[i - 1] != '.')
+	if (str[i] != '\0' || passed_i != i_check || passed_dot > 1)
 		exit_with_error(1);
 }
 
-// MAKE IT SO IT ONLY CHECKS FOR I ON THE SECOND INPUT
-
-
-double	ft_atof(char *str)
+long double	ft_atof(char *str, int i_check)
 {
 	int		i;
 	int		passed_dot;
-	double	sign;
-	double	nbr;
+	long double	sign;
+	long double	nbr;
 
-	check_if_correct_input(str);
+	check_if_correct_input(str, i_check);
 	i = 0;
 	nbr = 0;
 	sign = 1;
 	passed_dot = 0;
-	printf("float should be: %s\n", str);
 	if (str[i] == '-')
 	{
 		sign = -1;
@@ -347,11 +340,10 @@ double	ft_atof(char *str)
 		nbr /= 10;
 		passed_dot--;
 	}
-	printf("float after atof: %f\n", nbr);
 	return (nbr * sign);
 }
 
-double	ft_atosign(char *sign)
+long double	ft_atosign(char *sign)
 {
 	int i;
 
@@ -362,9 +354,9 @@ double	ft_atosign(char *sign)
 		i++;
 	if (i != 1)
 		exit_with_error(1);
-	if (sign[0] == 43)
+	if (sign[0] == '+')
 		return (1);
-	else if (sign[0] == 45)
+	else if (sign[0] == '-')
 		return (-1);
 	exit_with_error(1);
 	return (0);
@@ -380,13 +372,13 @@ void check_input(int argc, char **argv, r_root *root)
 	{
 		root->set = 2;
 		root->r_julia.x = 0;
-		root->r_julia.y = ft_atof(argv[argc - 1]);
+		root->r_julia.y = ft_atof(argv[argc - 1], CHECK_I);
 	}
 	else if (argc == 5 && !(ft_strncmp(argv[1], "julia", 5)))
 	{
 		root->set = 2;
-		root->r_julia.x = ft_atof(argv[argc - 3]);
-		root->r_julia.y = ft_atof(argv[argc - 1]) * ft_atosign(argv[argc - 2]);
+		root->r_julia.x = ft_atof(argv[argc - 3], DONT_CHECK_I);
+		root->r_julia.y = ft_atof(argv[argc - 1], CHECK_I) * ft_atosign(argv[argc - 2]);
 	}
 	else
 		exit_with_error(2);
