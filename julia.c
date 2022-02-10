@@ -6,13 +6,13 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:34:46 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/10 12:36:45 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/10 13:46:01 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fract-ol.h"
+#include "fractol.h"
 
-int	julia(r_root *root, long double x, long double y)
+int	julia(t_root *root, long double x, long double y)
 {
 	int			i;
 	long double	new_x;

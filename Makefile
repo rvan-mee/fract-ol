@@ -11,13 +11,13 @@ SRC =	color.c			\
 
 OBJ = $(SRC:.c=.o)
 
-NAME = fract-ol
+NAME = fractol
 
 all: $(NAME)
 
 clean:
 	rm *.o
-	rm fract-ol
+	rm fractol
 
 %.o: %.c
 	$(CC) -Wall -Wextra -Werror -Imlx -c -Ofast -O -O1 -O2 -O3 $< -o $@

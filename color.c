@@ -6,18 +6,18 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:37:33 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/10 12:41:13 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/10 13:45:51 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fract-ol.h"
+#include "fractol.h"
 
 int	color(int r, int g, int b)
 {
 	return (r << 16 | g << 8 | b);
 }
 
-void	put_color(r_root *root, int x, int y, int i)
+void	put_color(t_root *root, int x, int y, int i)
 {
 	if (i == root->r_screen.iteri + 1)
 	{
@@ -40,7 +40,7 @@ void	put_color(r_root *root, int x, int y, int i)
 	}
 }
 
-void	put_plot(r_root *root, int x, int y)
+void	put_plot(t_root *root, int x, int y)
 {
 	long double	real;
 	long double	imaginary;
@@ -51,7 +51,7 @@ void	put_plot(r_root *root, int x, int y)
 		my_pxl_put(root, x, y, 0x0FFFFFF);
 }
 
-void	color_change(r_root *root)
+void	color_change(t_root *root)
 {
 	int	x;
 	int	y;

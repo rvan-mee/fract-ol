@@ -6,13 +6,13 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:23:15 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/10 12:33:56 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/10 13:46:10 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fract-ol.h"
+#include "fractol.h"
 
-void exit_with_error(int error_message)
+void	exit_with_error(int error_message)
 {
 	if (error_message == 1)
 		write(1, "Please use a valid constant\nTry this: 0.285 + 0.01i\n", 53);
@@ -67,23 +67,24 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	return (0);
 }
 
-void	check_input(int argc, char **argv, r_root *root)
+void	check_input(int argc, char **argv, t_root *root)
 {
-	if (argc == 2 && !(ft_strncmp(argv[1], "mandelbrot", 10)))
+	if (argc == 2 && !(ft_strncmp(argv[1], "mandelbrot", 11)))
 		root->set = 1;
-	else if (argc == 2 && !(ft_strncmp(argv[1], "julia", 5)))
+	else if (argc == 2 && !(ft_strncmp(argv[1], "julia", 6)))
 		exit_with_error(1);
-	else if (argc == 3 && !(ft_strncmp(argv[1], "julia", 5)))
+	else if (argc == 3 && !(ft_strncmp(argv[1], "julia", 6)))
 	{
 		root->set = 2;
 		root->r_julia.x = 0;
 		root->r_julia.y = ft_atof(argv[argc - 1], CHECK_I);
 	}
-	else if (argc == 5 && !(ft_strncmp(argv[1], "julia", 5)))
+	else if (argc == 5 && !(ft_strncmp(argv[1], "julia", 6)))
 	{
 		root->set = 2;
 		root->r_julia.x = ft_atof(argv[argc - 3], DONT_CHECK_I);
-		root->r_julia.y = ft_atof(argv[argc - 1], CHECK_I) * ft_atosign(argv[argc - 2]);
+		root->r_julia.y = ft_atof(argv[argc - 1], CHECK_I)
+			* ft_atosign(argv[argc - 2]);
 	}
 	else
 		exit_with_error(2);

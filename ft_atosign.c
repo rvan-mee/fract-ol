@@ -6,15 +6,15 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:30:03 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/10 12:30:27 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/10 13:44:23 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fract-ol.h"
+#include "fractol.h"
 
 long double	ft_atosign(char *sign)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!sign)

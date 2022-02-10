@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   fract-ol.h                                         :+:    :+:            */
+/*   fractol.h                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:03:37 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/10 12:52:07 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/10 13:45:57 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TESTING_H
-# define TESTING_H
+#ifndef FRACTOL_H
+# define FRACTOL_H
 # include <mlx.h>
 # include <unistd.h>
 # include <stdio.h>
@@ -69,27 +69,30 @@ typedef struct s_root {
 	void		*mlx;
 	void		*mlx_win;
 	int			set;
-}	r_root;
+}	t_root;
 
 int			main(int argc, char *argv[]);
-int			init_mlx(r_root *root);
-void		refresh(r_root *root);
-void		new_img(r_root *root);
-void		my_pxl_put(r_root *root, int x, int y, int color);
-void		mouse_down(r_root *root);
-void		mouse_up(r_root *root);
-int			mouse_hook(int button, int x, int y, r_root *root);
-int			key_hook(int key, r_root *root);
-void		check_input(int argc, char **argv, r_root *root);
+int			init_mlx(t_root *root);
+void		refresh(t_root *root);
+void		new_img(t_root *root);
+void		my_pxl_put(t_root *root, int x, int y, int color);
+void		mouse_down(t_root *root);
+void		mouse_up(t_root *root);
+int			mouse_hook(int button, int x, int y, t_root *root);
+int			key_hook(int key, t_root *root);
+void		check_input(int argc, char **argv, t_root *root);
 void		check_input_atof(char *s, int i_check);
-void 		exit_with_error(int error_message);
+void		exit_with_error(int error_message);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 long double	ft_atosign(char *sign);
 long double	ft_atof(char *str, int i_check);
+void		set_nbr_atof(int i, int *passed_dot, long double *nbr, char *str);
 int			color(int r, int g, int b);
-void		put_color(r_root *root, int x, int y, int i);
-void		color_change(r_root *root);
-void		put_plot(r_root *root, int x, int y);
-int			mandelbrot(r_root *root, long double x, long double y);
-int			julia(r_root *root, long double x, long double y);
+void		put_color(t_root *root, int x, int y, int i);
+void		color_change(t_root *root);
+void		put_plot(t_root *root, int x, int y);
+int			mandelbrot(t_root *root, long double x, long double y);
+void		mandelbrot_helper(t_root *r, int *i,
+				long double i_s, long double r_s);
+int			julia(t_root *root, long double x, long double y);
 #endif
