@@ -1,4 +1,13 @@
-SRC =	testing.c
+SRC =	color.c			\
+		ft_atof.c		\
+		ft_atosign.c	\
+		key_hook.c		\
+		mlx.c			\
+		mouse_hook.c	\
+		parsing.c		\
+		mandelbrot.c	\
+		julia.c			\
+		main.c			
 
 OBJ = $(SRC:.c=.o)
 
@@ -8,6 +17,7 @@ all: $(NAME)
 
 clean:
 	rm *.o
+	rm fract-ol
 
 %.o: %.c
 	$(CC) -Wall -Wextra -Werror -Imlx -c -Ofast -O -O1 -O2 -O3 $< -o $@
