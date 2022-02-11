@@ -1,35 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   mandelbrot.c                                       :+:    :+:            */
+/*   burning_ship.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/02/10 12:34:50 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/11 14:47:24 by rvan-mee      ########   odam.nl         */
+/*   Created: 2022/02/10 15:06:51 by rvan-mee      #+#    #+#                 */
+/*   Updated: 2022/02/11 14:57:48 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	mandelbrot_helper(t_root *r, int *i, long double i_s, long double r_s)
+void	ship_helper(t_root *r, int *i, long double i_y, long double r_x)
 {
-	long double	rl;
-	long double	im;
-	long double	rl_tmp;
+	long double	zx;
+	long double	zy;
+	long double	x_temp;
 
-	rl = 0;
-	im = 0;
-	while (rl * rl + im * im <= 2 * 2 && *i <= r->r_screen.iteri)
+	zx = r_x;
+	zy = i_y;
+	while (zx * zx + zy * zy < 4 && *i <= r->r_screen.iteri)
 	{
-		rl_tmp = rl * rl - im * im + r_s;
-		im = 2 * rl * im + i_s;
-		rl = rl_tmp;
+		x_temp = zx * zx - zy * zy + r_x;
+		zy = 2 * zx * zy;
+		if (zy < 0)
+			zy *= -1;
+		zy += i_y;
+		zx = x_temp;
 		*i += 1;
 	}
 }
 
-int	mandelbrot(t_root *root, long double x, long double y)
+int	burning_ship(t_root *root, long double x, long double y)
 {
 	int			i;
 	long double	r_start;
@@ -38,11 +41,7 @@ int	mandelbrot(t_root *root, long double x, long double y)
 	i = 0;
 	r_start = x * root->r_screen.x_scale + root->r_screen.x_offset;
 	i_start = y * root->r_screen.y_scale + root->r_screen.y_offset;
-	mandelbrot_helper(root, &i, i_start, r_start);
-	if (root->r_screen.color_type == 0)
-		put_rainbow(root, x, y, i);
-	else if (root->r_screen.color_type == 1)
-		put_single_color(root, x, y, i);
-	//put_plot(root, x, y);
+	ship_helper(root, &i, i_start, r_start);
+	put_single_color(root, x, y, i);
 	return (SUCCESS);
 }

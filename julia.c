@@ -6,7 +6,7 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:34:46 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/10 13:46:01 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/11 14:58:00 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	julia(t_root *root, long double x, long double y)
 		new_x = x_temp + root->r_julia.x;
 		i++;
 	}
-	put_color(root, x, y, i);
-	put_plot(root, x, y);
+	put_single_color(root, x, y, i);
 	return (SUCCESS);
 }

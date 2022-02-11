@@ -6,7 +6,7 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:37:33 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/10 13:45:51 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/11 15:23:34 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,38 +17,51 @@ int	color(int r, int g, int b)
 	return (r << 16 | g << 8 | b);
 }
 
-void	put_color(t_root *root, int x, int y, int i)
+void	put_rainbow(t_root *root, int x, int y, int i)
 {
+	int	new_color;
+
+	new_color = 0;
 	if (i == root->r_screen.iteri + 1)
 	{
 		my_pxl_put(root, x, y, 0);
 		return ;
 	}
 	if (i < (root->r_screen.iteri / 3) * 1)
-	{
-		while (i < 25)
-			i++;
-		my_pxl_put(root, x, y, color(i * 2, i * root->r_screen.color, i / 2));
-	}
+		new_color += color(i * 2, i * root->r_screen.color, i / 2);
 	else if (i < (root->r_screen.iteri / 3) * 2)
-	{
-		my_pxl_put(root, x, y, color(i * 2, i * 2, i * root->r_screen.color));
-	}
+		new_color += color(i * 2, i * 2, i * root->r_screen.color);
 	else if (i > (root->r_screen.iteri / 3) * 2)
+		new_color += color(i * root->r_screen.color, i, i / 2);
+	if (new_color < 40)
+		new_color += 0x000F00F0;
+	my_pxl_put(root, x, y, new_color);
+}
+
+void	put_single_color(t_root *root, int x, int y, int i)
+{
+	int new_color;
+
+	new_color = 0;
+	if (i == root->r_screen.iteri + 1)
+		my_pxl_put(root, x, y, 0);
+	else
 	{
-		my_pxl_put(root, x, y, color(i * root->r_screen.color, i, i / 2));
+		new_color = i * 64 + root->r_screen.color;
+		if (new_color < 0x0000000FF)
+			new_color = 0x0FFFFFFFF;
+		my_pxl_put(root, x, y, new_color);
 	}
 }
 
-void	put_plot(t_root *root, int x, int y)
+void	fractal(int type, int x, int y, t_root *root)
 {
-	long double	real;
-	long double	imaginary;
-
-	real = x * root->r_screen.x_scale + root->r_screen.x_offset;
-	imaginary = y * root->r_screen.y_scale + root->r_screen.y_offset;
-	if (real == 0 || imaginary == 0)
-		my_pxl_put(root, x, y, 0x0FFFFFF);
+	if (type == 1)
+		mandelbrot(root, x, y);
+	else if (type == 2)
+		julia(root, x, y);
+	else if (type == 3)
+		burning_ship(root, x, y);
 }
 
 void	color_change(t_root *root)
@@ -61,16 +74,10 @@ void	color_change(t_root *root)
 	new_img(root);
 	while (y < HEIGHT)
 	{
-		if (root->set == 1)
-			mandelbrot(root, x, y);
-		else if (root->set == 2)
-			julia(root, x, y);
+		fractal(root->set, x, y, root);
 		while (x < WIDTH)
 		{
-			if (root->set == 1)
-				mandelbrot(root, x, y);
-			else if (root->set == 2)
-				julia(root, x, y);
+			fractal(root->set, x, y, root);
 			x++;
 		}
 		x = 0;

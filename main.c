@@ -6,14 +6,35 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:01:17 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/10 13:49:13 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/11 15:19:11 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
+// MOVE WITH ARRORW OR MOUSE SCROLL WHEEL FOR ZOOM
+// USE PAGE UP AND PAGE DOWN TO CHANGE ITERATIONS
+// USE C FOR A SINGLE COLOR SCREEN
+// USE R FOR A MULTI COLOR SCREEN
+
+void	init_colors(t_root *root)
+{
+	root->r_screen.all_options[0] = 0x000FF0000;
+	root->r_screen.all_options[1] = 0x00000F000;
+	root->r_screen.all_options[2] = 0x0000000FF;
+	root->r_screen.all_options[3] = 0x000FF00FF;
+	root->r_screen.all_options[4] = 0x00000FF0F; // change
+	root->r_screen.all_options[5] = 0x000FFFF00;
+	root->r_screen.all_options[6] = 0x000FFFF0F; // change
+	root->r_screen.all_options[7] = 0x000FF7DFF;
+	root->r_screen.all_options[8] = 0x00020F6DA;
+	root->r_screen.all_options[9] = 0x000FF277D;
+	root->r_screen.all_options[10] = 0x000FF6F1F;
+}
+
 int	init_mlx(t_root *root)
 {
+	init_colors(root);
 	root->mlx = mlx_init();
 	root->r_screen.iteri = 100;
 	root->r_screen.x_scale = 3 / (long double)WIDTH;
@@ -21,7 +42,8 @@ int	init_mlx(t_root *root)
 	root->r_screen.x_offset = -2;
 	root->r_screen.y_offset = 1;
 	root->r_screen.zoom = 1;
-	root->r_screen.color = 0x0000000F;
+	root->r_screen.color = 0x000000FF;
+	root->r_screen.color_type = 1;
 	root->mlx_win = mlx_new_window(root->mlx, WIDTH, HEIGHT, "testing!");
 	root->r_data.img = mlx_new_image(root->mlx, WIDTH, HEIGHT);
 	root->r_data.addr = mlx_get_data_addr(root->r_data.img,

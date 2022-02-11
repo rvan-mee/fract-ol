@@ -6,7 +6,7 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:23:15 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/10 13:46:10 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/10 15:14:32 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	exit_with_error(int error_message)
 	if (error_message == 1)
 		write(1, "Please use a valid constant\nTry this: 0.285 + 0.01i\n", 53);
 	if (error_message == 2)
-		write(1, "Please use a valid argument\nmandelbrot\njulia\n", 45);
+		write(1, "Please use a valid argument\nmandelbrot\njulia\nvela\n", 50);
 	exit(1);
 }
 
@@ -71,6 +71,8 @@ void	check_input(int argc, char **argv, t_root *root)
 {
 	if (argc == 2 && !(ft_strncmp(argv[1], "mandelbrot", 11)))
 		root->set = 1;
+	else if (argc == 2 && !(ft_strncmp(argv[1], "vela", 5)))
+		root->set = 3;
 	else if (argc == 2 && !(ft_strncmp(argv[1], "julia", 6)))
 		exit_with_error(1);
 	else if (argc == 3 && !(ft_strncmp(argv[1], "julia", 6)))
@@ -89,3 +91,4 @@ void	check_input(int argc, char **argv, t_root *root)
 	else
 		exit_with_error(2);
 }
+

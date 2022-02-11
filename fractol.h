@@ -6,7 +6,7 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:03:37 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/10 13:45:57 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/11 18:09:09 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,14 @@
 # define SUCCESS 1
 # define MOUSE_DOWN 5
 # define MOUSE_UP 4
-# define ARROW_UP 126
-# define ARROW_LEFT 123
-# define ARROW_DOWN 125
-# define ARROW_RIGHT 124
+# define ARW_UP 126
+# define ARW_LEFT 123
+# define ARW_DOWN 125
+# define ARW_RIGHT 124
 # define PAGE_UP 116
 # define PAGE_DOWN 121
 # define KEY_C 8
+# define KEY_R 15
 # define ESC 53
 # define OFFSET 1
 # define ZOOM 3
@@ -53,6 +54,8 @@ typedef struct s_julia {
 
 typedef struct s_screen {
 	int			color;
+	int			all_options[11];
+	int			color_type;
 	int			iteri;
 	long double	x_scale;
 	long double	y_scale;
@@ -79,6 +82,7 @@ void		my_pxl_put(t_root *root, int x, int y, int color);
 void		mouse_down(t_root *root);
 void		mouse_up(t_root *root);
 int			mouse_hook(int button, int x, int y, t_root *root);
+void		set_zoom(int key, t_root *root);
 int			key_hook(int key, t_root *root);
 void		check_input(int argc, char **argv, t_root *root);
 void		check_input_atof(char *s, int i_check);
@@ -88,11 +92,17 @@ long double	ft_atosign(char *sign);
 long double	ft_atof(char *str, int i_check);
 void		set_nbr_atof(int i, int *passed_dot, long double *nbr, char *str);
 int			color(int r, int g, int b);
-void		put_color(t_root *root, int x, int y, int i);
+void		put_rainbow(t_root *root, int x, int y, int i);
+void		put_single_color(t_root *root, int x, int y, int i);
+void		set_color_change_type(int key, t_root *root);
+void		fractal(int type, int x, int y, t_root *root);
 void		color_change(t_root *root);
 void		put_plot(t_root *root, int x, int y);
 int			mandelbrot(t_root *root, long double x, long double y);
 void		mandelbrot_helper(t_root *r, int *i,
 				long double i_s, long double r_s);
 int			julia(t_root *root, long double x, long double y);
+int			burning_ship(t_root *root, long double x, long double y);
+void		ship_helper(t_root *r, int *i,
+				long double i_s, long double r_s);
 #endif
