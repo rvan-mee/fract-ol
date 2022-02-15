@@ -6,7 +6,7 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:17:50 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/11 18:58:18 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/15 14:10:47 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,6 @@ long double	set_zoom_offset(t_root *root)
 }
 int	key_hook(int key, t_root *root)
 {
-	printf("key: %d\n", key);
-	printf("zoom: %Lf\noffset: %Lf\n", root->r_screen.zoom, (long double)OFFSET);
-	printf("offset x: %Lf\noffset y: %Lf\n\n", root->r_screen.x_offset, root->r_screen.y_offset);
 	if (key == ESC)
 		exit(1);
 	else if (key == ARW_DOWN)
@@ -88,6 +85,5 @@ int	key_hook(int key, t_root *root)
 	if (key == ARW_RIGHT || key == ARW_LEFT || key == ARW_DOWN || key == KEY_R
 		|| key == ARW_UP || key == KEY_C || key == PAGE_DOWN || key == PAGE_UP)
 		color_change(root);
-	printf("AFTER:\noffset x: %Lf\noffset y: %Lf\n\n\n", root->r_screen.x_offset, root->r_screen.y_offset);
 	return (0);
 }

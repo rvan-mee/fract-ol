@@ -6,7 +6,7 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:10:16 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/11 18:43:09 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/15 14:10:29 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	mouse_up(t_root *root)
 	root->r_screen.x_scale /= ZOOM;
 	root->r_screen.x_offset /= ZOOM;
 	root->r_screen.y_offset /= ZOOM;
-	printf("current zoom: %Lf\n", root->r_screen.zoom);
 }
 
 void	mouse_down(t_root *root)
@@ -30,7 +29,6 @@ void	mouse_down(t_root *root)
 	root->r_screen.x_scale *= ZOOM;
 	root->r_screen.x_offset *= ZOOM;
 	root->r_screen.y_offset *= ZOOM;
-	printf("current zoom: %Lf\n", root->r_screen.zoom);
 }
 
 int	mouse_hook(int button, int x, int y, t_root *root)

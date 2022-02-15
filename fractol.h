@@ -6,7 +6,7 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:03:37 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/11 18:09:09 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/15 13:32:52 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,8 @@ void		set_zoom(int key, t_root *root);
 int			key_hook(int key, t_root *root);
 void		check_input(int argc, char **argv, t_root *root);
 void		check_input_atof(char *s, int i_check);
-void		exit_with_error(int error_message);
+void		exit_error(char *error_message);
+int			ft_strlen(char *str);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 long double	ft_atosign(char *sign);
 long double	ft_atof(char *str, int i_check);
