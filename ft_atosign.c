@@ -6,12 +6,14 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:30:03 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/15 13:32:52 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/23 13:44:15 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
+// Takes a string and checks if it is either a + or a - and will
+// return 1, -1 or an error.
 long double	ft_atosign(char *sign)
 {
 	int	i;

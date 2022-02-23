@@ -6,12 +6,14 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:34:46 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/11 14:58:00 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/23 13:43:18 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
+// Takes the given x and y values and applies
+// them to the Julia formula.
 int	julia(t_root *root, long double x, long double y)
 {
 	int			i;

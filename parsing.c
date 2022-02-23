@@ -6,12 +6,13 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:23:15 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/15 14:08:04 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/23 13:20:10 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
+// Returns the length of a string.
 int	ft_strlen(char *str)
 {
 	int	i;
@@ -22,12 +23,16 @@ int	ft_strlen(char *str)
 	return (i);
 }
 
+// Exits program with a selected error message written beforehand.
 void	exit_error(char *error_message)
 {
 	write (1, error_message, ft_strlen(error_message));
 	exit(1);
 }
 
+// Checks if the input for atof is correct.
+// Returns an error with exit_error if it fails the checks.
+// Can check for imaginary numbers if specified.
 void	check_input_atof(char *s, int i_check)
 {
 	int		i;
@@ -59,6 +64,8 @@ void	check_input_atof(char *s, int i_check)
 		exit_error("Please use a valid constant\nTry this: 0.285 + 0.01i\n");
 }
 
+// Compares 2 strings with one another.
+// Returns the difference in ascii if there is one.
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t			i;
@@ -77,6 +84,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	return (0);
 }
 
+// Checks if the command line input is correct and selects the proper settings.
 void	check_input(int argc, char **argv, t_root *root)
 {
 	if (argc == 2 && !(ft_strncmp(argv[1], "mandelbrot", 11)))
@@ -88,16 +96,17 @@ void	check_input(int argc, char **argv, t_root *root)
 	else if (argc == 3 && !(ft_strncmp(argv[1], "julia", 6)))
 	{
 		root->set = 2;
+		root->r_screen.iteri = 10;
 		root->r_julia.x = 0;
 		root->r_julia.y = ft_atof(argv[argc - 1], CHECK_I);
 	}
 	else if (argc == 5 && !(ft_strncmp(argv[1], "julia", 6)))
 	{
 		root->set = 2;
+		root->r_screen.iteri = 10;
 		root->r_julia.x = ft_atof(argv[argc - 3], DONT_CHECK_I);
 		root->r_julia.y = ft_atof(argv[argc - 1], CHECK_I)
 			* ft_atosign(argv[argc - 2]);
-		printf("julia y = %Lf\n", root->r_julia.y);
 	}
 	else
 		exit_error("Please use a valid argument\nmandelbrot\njulia\nvela\n");

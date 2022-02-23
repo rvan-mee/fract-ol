@@ -6,12 +6,14 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 15:06:51 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/11 14:57:48 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/23 17:16:34 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
+// Keeps calulating the given X and Y values till the set max iterations,
+// Unless it falls outside of the 4 threshold.
 void	ship_helper(t_root *r, int *i, long double i_y, long double r_x)
 {
 	long double	zx;
@@ -32,6 +34,8 @@ void	ship_helper(t_root *r, int *i, long double i_y, long double r_x)
 	}
 }
 
+// Sets the values X and Y to fit within the burning ship plot.
+// Calls helper for the calculations.
 int	burning_ship(t_root *root, long double x, long double y)
 {
 	int			i;

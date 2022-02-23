@@ -6,17 +6,13 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:01:17 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/11 15:19:11 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/23 13:28:45 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-// MOVE WITH ARRORW OR MOUSE SCROLL WHEEL FOR ZOOM
-// USE PAGE UP AND PAGE DOWN TO CHANGE ITERATIONS
-// USE C FOR A SINGLE COLOR SCREEN
-// USE R FOR A MULTI COLOR SCREEN
-
+// Initiate all the color values.
 void	init_colors(t_root *root)
 {
 	root->r_screen.all_options[0] = 0x000FF0000;
@@ -32,6 +28,7 @@ void	init_colors(t_root *root)
 	root->r_screen.all_options[10] = 0x000FF6F1F;
 }
 
+// Initiate all the MLX data and screen data.
 int	init_mlx(t_root *root)
 {
 	init_colors(root);
@@ -44,7 +41,7 @@ int	init_mlx(t_root *root)
 	root->r_screen.zoom = 1;
 	root->r_screen.color = 0x000000FF;
 	root->r_screen.color_type = 1;
-	root->mlx_win = mlx_new_window(root->mlx, WIDTH, HEIGHT, "testing!");
+	root->mlx_win = mlx_new_window(root->mlx, WIDTH, HEIGHT, "fract-ol");
 	root->r_data.img = mlx_new_image(root->mlx, WIDTH, HEIGHT);
 	root->r_data.addr = mlx_get_data_addr(root->r_data.img,
 			&root->r_data.bpp, &root->r_data.ll, &root->r_data.endi);
@@ -52,6 +49,7 @@ int	init_mlx(t_root *root)
 	return (0);
 }
 
+// Calls the init functions and starts the MLX loop.
 int	main(int argc, char *argv[])
 {
 	t_root	root;

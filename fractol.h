@@ -6,7 +6,7 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:03:37 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/15 13:32:52 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/23 13:35:08 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void		my_pxl_put(t_root *root, int x, int y, int color);
 void		mouse_down(t_root *root);
 void		mouse_up(t_root *root);
 int			mouse_hook(int button, int x, int y, t_root *root);
-void		set_zoom(int key, t_root *root);
+void		set_iteri(int key, t_root *root);
 int			key_hook(int key, t_root *root);
 void		check_input(int argc, char **argv, t_root *root);
 void		check_input_atof(char *s, int i_check);

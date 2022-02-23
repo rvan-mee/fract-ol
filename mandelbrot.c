@@ -6,12 +6,14 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:34:50 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/11 14:47:24 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/23 13:26:38 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
+// Keeps calulating the given X and Y values till the set max iterations,
+// Unless it falls outside of the 2 * 2 threshold.
 void	mandelbrot_helper(t_root *r, int *i, long double i_s, long double r_s)
 {
 	long double	rl;
@@ -29,6 +31,9 @@ void	mandelbrot_helper(t_root *r, int *i, long double i_s, long double r_s)
 	}
 }
 
+// Sets the values X and Y to fit within the mandelbrot plot.
+// Calls helper for the calculations.
+// Can enable rainbow coloring mode by pressing <R> on the keyboard.
 int	mandelbrot(t_root *root, long double x, long double y)
 {
 	int			i;
@@ -43,6 +48,5 @@ int	mandelbrot(t_root *root, long double x, long double y)
 		put_rainbow(root, x, y, i);
 	else if (root->r_screen.color_type == 1)
 		put_single_color(root, x, y, i);
-	//put_plot(root, x, y);
 	return (SUCCESS);
 }
