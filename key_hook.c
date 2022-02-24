@@ -6,7 +6,7 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:17:50 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/23 13:41:42 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/24 13:04:45 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,14 @@ void	set_color_change_type(int key, t_root *root)
 			root->r_screen.color += 64;
 		else
 			root->r_screen.color -= 255 * 255;
-		return ;
 	}
-	root->r_screen.color_type = 1;
-	single_color_change(root);
+	else if (key == KEY_C)
+	{
+		root->r_screen.color_type = 1;
+		single_color_change(root);
+	}
+	else
+		root->r_screen.color_type = 2;
 }
 
 // If page up or page down is used changes the iterations to be higher or lower.
@@ -92,12 +96,13 @@ int	key_hook(int key, t_root *root)
 		root->r_screen.x_offset -= (long double)OFFSET / set_zoom_offset(root);
 	else if (key == ARW_RIGHT)
 		root->r_screen.x_offset += (long double)OFFSET / set_zoom_offset(root);
-	else if (key == KEY_C || key == KEY_R)
+	else if (key == KEY_C || key == KEY_R || key == KEY_B)
 		set_color_change_type(key, root);
 	else if (key == PAGE_UP || key == PAGE_DOWN)
 		set_iteri(key, root);
 	if (key == ARW_RIGHT || key == ARW_LEFT || key == ARW_DOWN || key == KEY_R
-		|| key == ARW_UP || key == KEY_C || key == PAGE_DOWN || key == PAGE_UP)
+		|| key == ARW_UP || key == KEY_C || key == PAGE_DOWN || key == PAGE_UP
+		|| key == KEY_B)
 		color_change(root);
 	return (0);
 }

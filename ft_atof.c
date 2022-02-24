@@ -6,7 +6,7 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:28:55 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/23 13:50:58 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/24 12:59:25 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	set_nbr_atof(int i, int *passed_dot, long double *nbr, char *str)
 			(*passed_dot)++;
 			i++;
 		}
-		if (*passed_dot != 0)
+		if (*passed_dot != 0 && !(str[i] == 'i'))
 			(*passed_dot)++;
 		if (!(str[i] == 'i'))
 		{

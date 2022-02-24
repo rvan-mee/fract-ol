@@ -8,6 +8,7 @@ SRC =	color.c			\
 		mandelbrot.c	\
 		julia.c			\
 		burning_ship.c	\
+		fractals.c		\
 		main.c			
 
 OBJ = $(SRC:.c=.o)

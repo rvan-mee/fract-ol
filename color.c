@@ -6,7 +6,7 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:37:33 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/23 14:23:56 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/23 18:40:41 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,20 @@ void	put_rainbow(t_root *root, int x, int y, int i)
 	if (new_color < 40)
 		new_color += 0x000F00F0;
 	my_pxl_put(root, x, y, new_color);
+}
+
+// Scales from black to white.
+void	put_black_to_white(t_root *root, int x, int y, int i)
+{
+	double	percentage_i;
+	
+	percentage_i = (double)i / root->r_screen.iteri * 255;
+	if (i == root->r_screen.iteri + 1)
+	{
+		my_pxl_put(root, x, y, 0x00FFFFFF);
+		return;
+	}
+	my_pxl_put(root, x, y, color(percentage_i, percentage_i, percentage_i));
 }
 
 // Depending on the Iterations vs Max Iterations sets the color to black

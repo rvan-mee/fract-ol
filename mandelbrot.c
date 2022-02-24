@@ -6,7 +6,7 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:34:50 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/23 13:26:38 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/23 17:56:02 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,7 @@ int	mandelbrot(t_root *root, long double x, long double y)
 		put_rainbow(root, x, y, i);
 	else if (root->r_screen.color_type == 1)
 		put_single_color(root, x, y, i);
+	else if (root->r_screen.color_type == 2)
+		put_black_to_white(root, x, y, i);
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:03:37 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/23 13:35:08 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/23 17:54:25 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # define PAGE_DOWN 121
 # define KEY_C 8
 # define KEY_R 15
+# define KEY_B 11
 # define ESC 53
 # define OFFSET 1
 # define ZOOM 3
@@ -95,6 +96,7 @@ void		set_nbr_atof(int i, int *passed_dot, long double *nbr, char *str);
 int			color(int r, int g, int b);
 void		put_rainbow(t_root *root, int x, int y, int i);
 void		put_single_color(t_root *root, int x, int y, int i);
+void		put_black_to_white(t_root *root, int x, int y, int i);
 void		set_color_change_type(int key, t_root *root);
 void		fractal(int type, int x, int y, t_root *root);
 void		color_change(t_root *root);
