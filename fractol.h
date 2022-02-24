@@ -6,7 +6,7 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:03:37 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/23 17:54:25 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/24 19:22:03 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ typedef struct s_julia {
 
 typedef struct s_screen {
 	int			color;
-	int			all_options[11];
+	int			all_options;
+	int			options[7][3];
 	int			color_type;
 	int			iteri;
 	long double	x_scale;

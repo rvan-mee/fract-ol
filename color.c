@@ -6,14 +6,14 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:37:33 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/23 18:40:41 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/24 18:56:33 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
 // Returns a color's RGB value based on the input R G and B.
-// Max values should be 256 per color.
+// Max values should be 255 per color.
 int	color(int r, int g, int b)
 {
 	return (r << 16 | g << 8 | b);
@@ -44,33 +44,37 @@ void	put_rainbow(t_root *root, int x, int y, int i)
 }
 
 // Scales from black to white.
+// (pei) is the % of the current iteration compared to
+// the max iteration, scaled to 255.
 void	put_black_to_white(t_root *root, int x, int y, int i)
 {
-	double	percentage_i;
-	
-	percentage_i = (double)i / root->r_screen.iteri * 255;
+	double	pei;
+
+	pei = (double)i / root->r_screen.iteri * 255;
 	if (i == root->r_screen.iteri + 1)
 	{
 		my_pxl_put(root, x, y, 0x00FFFFFF);
-		return;
+		return ;
 	}
-	my_pxl_put(root, x, y, color(percentage_i, percentage_i, percentage_i));
+	my_pxl_put(root, x, y, color(pei, pei, pei));
 }
 
 // Depending on the Iterations vs Max Iterations sets the color to black
 // or a color thats based off the current selected color (change by pressing C).
 void	put_single_color(t_root *root, int x, int y, int i)
 {
-	int	new_color;
+	int			j;
+	double		pei;
 
-	new_color = 0;
+	j = root->r_screen.all_options;
+	pei = (double)i / root->r_screen.iteri * 255;
 	if (i == root->r_screen.iteri + 1)
 		my_pxl_put(root, x, y, 0);
 	else
 	{
-		new_color = i * 64 + root->r_screen.color;
-		if (new_color < 0x0000000FF)
-			new_color = root->r_screen.color;
-		my_pxl_put(root, x, y, new_color);
+		my_pxl_put(root, x, y,
+			color(root->r_screen.options[j][0] * pei,
+				root->r_screen.options[j][1] * pei,
+				root->r_screen.options[j][2] * pei));
 	}
 }

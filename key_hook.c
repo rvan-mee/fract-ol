@@ -6,7 +6,7 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:17:50 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/24 13:04:45 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/24 19:21:38 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	single_color_change(t_root *root)
 {
 	static int	i;
 
-	if (i > 10)
+	if (i > 6)
 		i = 0;
-	root->r_screen.color = root->r_screen.all_options[i];
+	root->r_screen.all_options = i;
 	i++;
 }
 
@@ -65,17 +65,17 @@ long double	set_zoom_offset(t_root *root)
 	long double	zoom_offset;
 
 	zoom_offset = 0;
-	if (root->r_screen.zoom <= 3)
+	if (root->r_screen.zoom <= 6)
 		zoom_offset = root->r_screen.zoom * root->r_screen.zoom * 100;
-	else if (root->r_screen.zoom >= 3.5 && root->r_screen.zoom <= 4.5)
+	else if (root->r_screen.zoom >= 7 && root->r_screen.zoom <= 9)
 		zoom_offset = root->r_screen.zoom * root->r_screen.zoom * 250;
-	else if (root->r_screen.zoom >= 5 && root->r_screen.zoom <= 6.5)
+	else if (root->r_screen.zoom >= 10 && root->r_screen.zoom <= 13)
 		zoom_offset = root->r_screen.zoom * root->r_screen.zoom * 5000;
-	else if (root->r_screen.zoom >= 7 && root->r_screen.zoom <= 8.5)
+	else if (root->r_screen.zoom >= 14 && root->r_screen.zoom <= 17)
 		zoom_offset = root->r_screen.zoom * root->r_screen.zoom * 50000;
-	else if (root->r_screen.zoom >= 9 && root->r_screen.zoom <= 11)
+	else if (root->r_screen.zoom >= 18 && root->r_screen.zoom <= 22)
 		zoom_offset = root->r_screen.zoom * root->r_screen.zoom * 3000000;
-	else if (root->r_screen.zoom >= 11.5)
+	else if (root->r_screen.zoom >= 23)
 		zoom_offset = root->r_screen.zoom * root->r_screen.zoom * 250000000;
 	return (zoom_offset);
 }

@@ -6,7 +6,7 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/23 13:53:59 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/23 13:56:01 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/24 18:57:02 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ void	color_change(t_root *root)
 	x = 0;
 	y = 0;
 	new_img(root);
-	while (y < HEIGHT)
+	while (y <= HEIGHT)
 	{
 		fractal(root->set, x, y, root);
-		while (x < WIDTH)
+		while (x <= WIDTH)
 		{
 			fractal(root->set, x, y, root);
 			x++;

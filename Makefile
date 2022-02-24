@@ -21,7 +21,7 @@ clean:
 	rm *.o
 	rm fractol
 
-%.o: %.c
+%.o: %.c fractol.h
 	$(CC) -Wall -Wextra -Werror -Imlx -c -Ofast -O -O1 -O2 -O3 $< -o $@
 
 $(NAME): $(OBJ)

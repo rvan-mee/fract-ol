@@ -6,7 +6,7 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:05:19 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/23 13:23:19 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/24 19:00:28 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	new_img(t_root *root)
 {
 	mlx_destroy_image(root->mlx, root->r_data.img);
 	root->r_data.img = mlx_new_image(root->mlx, WIDTH, HEIGHT);
+	if (root->r_data.img == NULL)
+		exit_error("MLX error\n");
 	mlx_put_image_to_window(root->mlx, root->mlx_win, root->r_data.img, 0, 0);
 }
 
