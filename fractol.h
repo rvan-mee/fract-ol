@@ -6,7 +6,7 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:03:37 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/24 19:22:03 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/25 13:41:40 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void		put_rainbow(t_root *root, int x, int y, int i);
 void		put_single_color(t_root *root, int x, int y, int i);
 void		put_black_to_white(t_root *root, int x, int y, int i);
 void		set_color_change_type(int key, t_root *root);
-void		fractal(int type, int x, int y, t_root *root);
+void		fractal(t_root *root, int x, int y);
 void		color_change(t_root *root);
 void		put_plot(t_root *root, int x, int y);
 int			mandelbrot(t_root *root, long double x, long double y);

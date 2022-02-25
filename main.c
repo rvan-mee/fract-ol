@@ -6,12 +6,13 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:01:17 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/24 19:18:32 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/25 13:31:04 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
+// Initiate all the color options.
 void	init_options(t_root *root)
 {
 	root->r_screen.all_options = 0;
@@ -54,10 +55,8 @@ int	init_mlx(t_root *root)
 	root->r_screen.color = 0x000000FF;
 	root->r_screen.color_type = 1;
 	root->mlx_win = mlx_new_window(root->mlx, WIDTH, HEIGHT, "fract-ol");
-	if (root->mlx_win == NULL)
-		exit_error("MLX error\n");
 	root->r_data.img = mlx_new_image(root->mlx, WIDTH, HEIGHT);
-	if (root->r_data.img == NULL)
+	if (root->r_data.img == NULL || root->mlx_win == NULL)
 		exit_error("MLX error\n");
 	root->r_data.addr = mlx_get_data_addr(root->r_data.img,
 			&root->r_data.bpp, &root->r_data.ll, &root->r_data.endi);
@@ -72,7 +71,6 @@ int	main(int argc, char *argv[])
 {
 	t_root	root;
 
-	setbuf(stdout, NULL);
 	check_input(argc, argv, &root);
 	init_mlx(&root);
 	mlx_key_hook(root.mlx_win, key_hook, &root);

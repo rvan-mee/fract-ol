@@ -22,11 +22,11 @@ clean:
 	rm fractol
 
 %.o: %.c fractol.h
-	$(CC) -Wall -Wextra -Werror -Imlx -c -Ofast -O -O1 -O2 -O3 $< -o $@
+	$(CC) -Wall -Wextra -Werror -Imlx -fsanitize=address -g -c -Ofast -O -O1 -O2 -O3 $< -o $@
 
 $(NAME): $(OBJ)
 	make -C mlx
-	$(CC) $(OBJ) -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) $(OBJ) -fsanitize=address -g -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 re: clean all
 	
