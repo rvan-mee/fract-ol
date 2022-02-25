@@ -6,7 +6,7 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:03:37 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/25 13:41:40 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/25 19:05:34 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_screen {
 	int			color;
 	int			all_options;
 	int			options[7][3];
+	int			rainbow_base[11];
 	int			color_type;
 	int			iteri;
 	long double	x_scale;
@@ -78,6 +79,8 @@ typedef struct s_root {
 
 int			main(int argc, char *argv[]);
 int			init_mlx(t_root *root);
+void		init_rainbow_colors(t_root *root);
+void		init_options(t_root *root);
 void		refresh(t_root *root);
 void		new_img(t_root *root);
 void		my_pxl_put(t_root *root, int x, int y, int color);

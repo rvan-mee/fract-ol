@@ -6,7 +6,7 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:17:50 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/25 13:15:26 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/25 19:21:00 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,15 @@ void	single_color_change(t_root *root)
 // apearing on screen in the selected mode.
 void	set_color_change_type(int key, t_root *root)
 {
+	static int	i;
+
 	if (key == KEY_R)
 	{
+		if (i > 10)
+			i = 0;
 		root->r_screen.color_type = 0;
-		if (root->r_screen.color > 0 && root->r_screen.color < 0x000FFFFFF)
-			root->r_screen.color += 64;
-		else
-			root->r_screen.color -= 255 * 255;
+		root->r_screen.color = root->r_screen.rainbow_base[i];
+		i++;
 	}
 	else if (key == KEY_C)
 	{

@@ -6,11 +6,27 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:01:17 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/25 13:31:04 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/25 19:20:43 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+// Initiate all the base colors for the rainbow mode.
+void	init_rainbow_colors(t_root *root)
+{
+	root->r_screen.rainbow_base[0] = 0x0000F0000;
+	root->r_screen.rainbow_base[1] = 0x00000F000;
+	root->r_screen.rainbow_base[2] = 0x0000000FF;
+	root->r_screen.rainbow_base[3] = 0x000FFFF0F;
+	root->r_screen.rainbow_base[4] = 0x00000FF0F;
+	root->r_screen.rainbow_base[5] = 0x000FFFF00;
+	root->r_screen.rainbow_base[6] = 0x000FF00FF;
+	root->r_screen.rainbow_base[7] = 0x0000F00FF;
+	root->r_screen.rainbow_base[8] = 0x00020F6DA;
+	root->r_screen.rainbow_base[9] = 0x00000277D;
+	root->r_screen.rainbow_base[10] = 0x000F00F0;
+}
 
 // Initiate all the color options.
 void	init_options(t_root *root)
@@ -43,6 +59,7 @@ void	init_options(t_root *root)
 int	init_mlx(t_root *root)
 {
 	init_options(root);
+	init_rainbow_colors(root);
 	root->mlx = mlx_init();
 	if (root->mlx == NULL)
 		exit_error("MLX error\n");
@@ -52,7 +69,7 @@ int	init_mlx(t_root *root)
 	root->r_screen.x_offset = -2;
 	root->r_screen.y_offset = 1;
 	root->r_screen.zoom = 1;
-	root->r_screen.color = 0x000000FF;
+	root->r_screen.color = 0x0000FF00;
 	root->r_screen.color_type = 1;
 	root->mlx_win = mlx_new_window(root->mlx, WIDTH, HEIGHT, "fract-ol");
 	root->r_data.img = mlx_new_image(root->mlx, WIDTH, HEIGHT);
