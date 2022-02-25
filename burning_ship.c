@@ -6,7 +6,7 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 15:06:51 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/23 17:16:34 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/25 14:18:08 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,11 @@ int	burning_ship(t_root *root, long double x, long double y)
 	r_start = x * root->r_screen.x_scale + root->r_screen.x_offset;
 	i_start = y * root->r_screen.y_scale + root->r_screen.y_offset;
 	ship_helper(root, &i, i_start, r_start);
-	put_single_color(root, x, y, i);
+	if (root->r_screen.color_type == 0)
+		put_rainbow(root, x, y, i);
+	else if (root->r_screen.color_type == 1)
+		put_single_color(root, x, y, i);
+	else if (root->r_screen.color_type == 2)
+		put_black_to_white(root, x, y, i);
 	return (SUCCESS);
 }

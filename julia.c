@@ -6,7 +6,7 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:34:46 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/24 19:21:47 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/25 14:16:02 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ int	julia(t_root *root, long double x, long double y)
 		new_x = x_temp + root->r_julia.x;
 		i++;
 	}
-	put_single_color(root, x, y, i);
+	if (root->r_screen.color_type == 0)
+		put_rainbow(root, x, y, i);
+	else if (root->r_screen.color_type == 1)
+		put_single_color(root, x, y, i);
+	else if (root->r_screen.color_type == 2)
+		put_black_to_white(root, x, y, i);
 	return (SUCCESS);
 }
