@@ -6,7 +6,7 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:05:19 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/25 13:43:36 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/25 14:29:06 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	new_img(t_root *root)
 	if (root->r_data.img == NULL)
 		exit_error("MLX error\n");
 	root->r_data.addr = mlx_get_data_addr(root->r_data.img,
-		&root->r_data.bpp, &root->r_data.ll, &root->r_data.endi);
+			&root->r_data.bpp, &root->r_data.ll, &root->r_data.endi);
 	if (root->r_data.addr == NULL)
 		exit_error("MLX error\n");
 	mlx_put_image_to_window(root->mlx, root->mlx_win, root->r_data.img, 0, 0);
