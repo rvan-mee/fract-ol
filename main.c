@@ -6,7 +6,7 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:01:17 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/25 19:20:43 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/27 14:00:18 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,19 @@ int	init_mlx(t_root *root)
 			&root->r_data.bpp, &root->r_data.ll, &root->r_data.endi);
 	if (root->r_data.addr == NULL)
 		exit_error("MLX error\n");
-	color_change(root);
 	return (0);
+}
+
+// initiates all the values to have 
+// the burning ship fractol in a better position.
+void	init_ship(t_root *root)
+{
+	root->set = 3;
+	root->r_screen.zoom = 3;
+	root->r_screen.x_scale = 0.00012056327160493829;
+	root->r_screen.y_scale = -0.00014288980338363055;
+	root->r_screen.x_offset = -1.79834876543209878344;
+	root->r_screen.y_offset = 0.10413351623228167290;
 }
 
 // Calls the init functions and starts the MLX loop.
@@ -90,6 +101,9 @@ int	main(int argc, char *argv[])
 
 	check_input(argc, argv, &root);
 	init_mlx(&root);
+	if (root.set == 3)
+		init_ship(&root);
+	color_change(&root);
 	mlx_key_hook(root.mlx_win, key_hook, &root);
 	mlx_mouse_hook(root.mlx_win, mouse_hook, &root);
 	mlx_loop(root.mlx);
