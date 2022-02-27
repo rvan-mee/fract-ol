@@ -6,7 +6,7 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:03:37 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/27 13:55:48 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/02/27 14:07:02 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,7 @@
 # define FRACTOL_H
 # include <mlx.h>
 # include <unistd.h>
-# include <stdio.h>
 # include <stdlib.h>
-# include <math.h>
-# include <complex.h>
 
 # define WIDTH 1920
 # define HEIGHT 1080 
