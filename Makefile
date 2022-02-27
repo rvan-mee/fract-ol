@@ -18,8 +18,12 @@ NAME = fractol
 all: $(NAME)
 
 clean:
+	make -C mlx clean
 	rm *.o
-	rm fractol
+
+fclean: clean
+	make -C mlx fclean
+	rm -f $(NAME)
 
 %.o: %.c fractol.h
 	$(CC) -Wall -Wextra -Werror -Imlx -fsanitize=address -g -c -Ofast -O -O1 -O2 -O3 $< -o $@
@@ -28,6 +32,8 @@ $(NAME): $(OBJ)
 	make -C mlx
 	$(CC) $(OBJ) -fsanitize=address -g -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
-re: clean all
-	
+re: fclean all
+
 CC = gcc
+
+.PHONY:	all bonus clean fclean re
