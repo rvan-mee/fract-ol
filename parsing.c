@@ -6,7 +6,7 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:23:15 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/27 13:27:19 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/03/01 15:14:02 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,11 @@ int	ft_strlen(char *str)
 }
 
 // Exits program with a selected error message written beforehand.
-void	exit_error(char *error_message)
+int	exit_error(char *error_message)
 {
 	write (1, error_message, ft_strlen(error_message));
 	exit(1);
+	return (1);
 }
 
 // Compares 2 strings with one another.

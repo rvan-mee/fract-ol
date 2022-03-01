@@ -6,7 +6,7 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:01:17 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/27 14:00:18 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/03/01 15:15:54 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ int	main(int argc, char *argv[])
 	if (root.set == 3)
 		init_ship(&root);
 	color_change(&root);
+	mlx_hook(root.mlx_win, CLOSE_WINDOW, 0, exit_error, "");
 	mlx_key_hook(root.mlx_win, key_hook, &root);
 	mlx_mouse_hook(root.mlx_win, mouse_hook, &root);
 	mlx_loop(root.mlx);

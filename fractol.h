@@ -6,7 +6,7 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:03:37 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/27 14:07:02 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/03/01 15:14:48 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define ARW_RIGHT 124
 # define PAGE_UP 116
 # define PAGE_DOWN 121
+# define CLOSE_WINDOW 17
 # define KEY_C 8
 # define KEY_R 15
 # define KEY_B 11
@@ -89,7 +90,7 @@ void		set_iteri(int key, t_root *root);
 int			key_hook(int key, t_root *root);
 void		check_input(int argc, char **argv, t_root *root);
 void		check_input_atof(char *s, int i_check);
-void		exit_error(char *error_message);
+int			exit_error(char *error_message);
 int			ft_strlen(char *str);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 long double	ft_atosign(char *sign);
