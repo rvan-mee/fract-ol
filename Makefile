@@ -1,39 +1,42 @@
-SRC =	color.c			\
-		ft_atof.c		\
-		ft_atosign.c	\
-		key_hook.c		\
-		mlx.c			\
-		mouse_hook.c	\
-		parsing.c		\
-		mandelbrot.c	\
-		julia.c			\
-		burning_ship.c	\
-		fractals.c		\
-		main.c			
+SRC =	color.c					\
+		ft_atof.c				\
+		ft_atosign.c			\
+		key_hook.c				\
+		mlx.c					\
+		mouse_hook.c			\
+		parsing.c				\
+		mandelbrot.c			\
+		julia.c					\
+		burning_ship_bonus.c	\
+		fractals.c				\
+		main.c	
 
 OBJ = $(SRC:.c=.o)
 
+MLXFLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit
+
+CFLAGS = -Wall -Wextra -Werror
+
 NAME = fractol
 
-all: $(NAME)
-
-clean:
-	make -C mlx clean
-	rm *.o
-
-fclean: clean
-	make -C mlx fclean
-	rm -f $(NAME)
-
-%.o: %.c fractol.h
-	$(CC) -Wall -Wextra -Werror -Imlx -fsanitize=address -g -c -Ofast -O -O1 -O2 -O3 $< -o $@
+CC = gcc
 
 $(NAME): $(OBJ)
 	make -C mlx
-	$(CC) $(OBJ) -fsanitize=address -g -Lmlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) $(OBJ) $(CLFAGS) $(MLXFLAGS) -o $(NAME)
+
+%.o: %.c fractol.h
+	$(CC) $(CFLAGS) -Imlx -c -Ofast -O -O1 -O2 -O3 $< -o $@
+
+clean:
+	make -C mlx clean
+	rm -f $(OBJ)
+
+fclean: clean
+	rm -f $(NAME)
 
 re: fclean all
 
-CC = gcc
+all: $(NAME)
 
 .PHONY:	all bonus clean fclean re
