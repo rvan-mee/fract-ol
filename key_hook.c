@@ -6,7 +6,7 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:17:50 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/27 13:57:36 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/03/02 11:16:53 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ long double	set_zoom_offset(t_root *root)
 {
 	long double	zoom_offset;
 
-	zoom_offset = 0;
-	if (root->r_screen.zoom <= 6)
+	zoom_offset = 1;
+	if (root->r_screen.zoom <= 6 && root->r_screen.zoom != 0)
 		zoom_offset = root->r_screen.zoom * root->r_screen.zoom * 50;
 	else if (root->r_screen.zoom >= 7 && root->r_screen.zoom <= 9)
 		zoom_offset = root->r_screen.zoom * root->r_screen.zoom * 125;
