@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   burning_ship.c                                     :+:    :+:            */
+/*   burning_ship_bonus.c                               :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
+/*   By: rvan-mee <rvan-mee@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 15:06:51 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/27 12:25:25 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/03/21 11:26:53 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,7 @@ void	ship_helper(t_root *r, int *i, long double i_y, long double r_x)
 	while (zx * zx + zy * zy < 4 && *i <= r->r_screen.iteri)
 	{
 		x_temp = zx * zx - zy * zy + r_x;
-		zy = 2 * zx * zy;
-		if (zy < 0)
-			zy *= -1;
-		zy += i_y;
+		zy = fabsl(2 * zx * zy) + i_y;
 		zx = x_temp;
 		*i += 1;
 	}

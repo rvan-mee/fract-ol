@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   fractol.h                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
+/*   By: rvan-mee <rvan-mee@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:03:37 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/03/01 15:14:48 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/03/21 11:27:23 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <mlx.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <math.h>
 
 # define WIDTH 1920
 # define HEIGHT 1080 

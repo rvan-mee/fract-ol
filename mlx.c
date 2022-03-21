@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   mlx.c                                              :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
+/*   By: rvan-mee <rvan-mee@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:05:19 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/25 14:29:06 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/03/10 16:52:48 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

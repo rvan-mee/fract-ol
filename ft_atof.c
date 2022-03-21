@@ -6,7 +6,7 @@
 /*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:28:55 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/25 14:28:46 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/03/05 20:47:31 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void	check_input_atof(char *s, int i_check)
 	passed_i = 0;
 	if (s[0] == '-')
 		i++;
-	while (s[i] != '\0' || (s[i] >= '0' && s[i] <= '9')
-		|| s[i] == 'i' || s[i] == '.')
+	while ((s[i] != '\0' && (s[i] >= '0' && s[i] <= '9'))
+		|| (s[i] != '\0' && s[i] == 'i') || (s[i] != '\0' && s[i] == '.'))
 	{	
 		if (atof_check_helper(s, i))
 			exit_error("Please use a valid constant\nTry this: 0.285 + 0.01i\n");

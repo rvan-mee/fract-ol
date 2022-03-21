@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   parsing.c                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
+/*   By: rvan-mee <rvan-mee@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:23:15 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/03/01 15:14:02 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/03/21 11:41:09 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	check_input(int argc, char **argv, t_root *root)
 	else if (argc == 2 && !(ft_strncmp(argv[1], "vela", 5)))
 		root->set = 3;
 	else if (argc == 2 && !(ft_strncmp(argv[1], "julia", 6)))
-		exit_error("Please use a valid constant\nTry this: 0.285 + 0.01i\n");
+		exit_error("Use a valid constant\nTry 0.285 + 0.01i\nOr try 0.8i\n");
 	else if (argc == 3 && !(ft_strncmp(argv[1], "julia", 6)))
 	{
 		root->set = 2;

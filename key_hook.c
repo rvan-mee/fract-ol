@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   key_hook.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
+/*   By: rvan-mee <rvan-mee@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:17:50 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/03/02 11:16:53 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/03/21 11:34:48 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	single_color_change(t_root *root)
 {
 	static int	i;
 
-	if (i > 6)
+	if (i > 5)
 		i = 0;
 	root->r_screen.all_options = i;
 	i++;

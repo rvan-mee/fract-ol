@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   main.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
+/*   By: rvan-mee <rvan-mee@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:01:17 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/03/01 15:15:54 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/03/21 11:43:06 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,6 @@ void	init_options(t_root *root)
 	root->r_screen.options[5][0] = 0;
 	root->r_screen.options[5][1] = 1;
 	root->r_screen.options[5][2] = 1;
-	root->r_screen.options[6][0] = 1;
-	root->r_screen.options[6][1] = 0;
-	root->r_screen.options[6][2] = 1;
 }
 
 // Initiate all the MLX data and screen data.
@@ -64,7 +61,7 @@ int	init_mlx(t_root *root)
 	if (root->mlx == NULL)
 		exit_error("MLX error\n");
 	root->r_screen.iteri = 100;
-	root->r_screen.x_scale = 3 / (long double)WIDTH;
+	root->r_screen.x_scale = 2 / (long double)HEIGHT;
 	root->r_screen.y_scale = 2 / (long double)HEIGHT * -1;
 	root->r_screen.x_offset = -2;
 	root->r_screen.y_offset = 1;

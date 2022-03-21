@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   mouse_hook.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: rvan-mee <rvan-mee@student.codam.nl>         +#+                     */
+/*   By: rvan-mee <rvan-mee@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/02/10 12:10:16 by rvan-mee      #+#    #+#                 */
-/*   Updated: 2022/02/27 13:55:59 by rvan-mee      ########   odam.nl         */
+/*   Updated: 2022/03/10 16:53:27 by rvan-mee      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
