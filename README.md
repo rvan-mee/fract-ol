@@ -1,4 +1,6 @@
 # **fract-ol**
+[![rvan-mee's 42 fract-ol Score](https://badge42.vercel.app/api/v2/cl69mwa81019009k4fcmo62kd/project/2468006)](https://github.com/JaeSeoKim/badge42)
+
 A small fractal exploration program for 42 Codam's project fract-ol.
 
 ## Includes:
