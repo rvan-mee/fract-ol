@@ -1,5 +1,5 @@
 # **fract-ol**
-A small fratal exploration program for 42 Codam's project fract-ol.
+A small fractal exploration program for 42 Codam's project fract-ol.
 
 ## Includes:
 - Mandelbrot set
