@@ -24,6 +24,7 @@ Features:
 - Press 'B' to enter Black & White mode
 - Press 'C' To change to a static color
 - Press 'R' To change to rainbow mode (Multiple options)
+- Press 'PAGE UP' or 'PAGE DOWN' to change the iteration count used in the calculation
 ```
 ## Screenshots:
 
